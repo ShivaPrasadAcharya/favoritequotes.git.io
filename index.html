@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #e91e63;
+            --light-pink: #fce4ec;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-pink);
+        }
+
+        .header {
+            background-color: var(--pink);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            transition: 0.3s;
+            z-index: 1001;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .drawer.open {
+            left: 0;
+        }
+
+        .drawer-header {
+            background-color: var(--pink);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .drawer-item {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .drawer-item i {
+            margin-right: 1rem;
+            color: var(--pink);
+        }
+
+        .drawer-item:hover {
+            background-color: var(--light-pink);
+        }
+
+        .main-content {
+            margin-top: 60px;
+            padding: 1rem;
+            margin-bottom: 50px; /* Added to prevent content from being hidden by footer */
+        }
+
+        .quote-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .quote-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            padding-right: 30px; /* Space for favorite button */
+        }
+
+        .quote-author {
+            color: #666;
+            font-style: italic;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: var(--pink);
+            cursor: pointer;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background-color: var(--pink);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        .overlay.open {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="menu-btn" onclick="toggleDrawer()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1>Inspiring Quotes</h1>
+        <div style="width: 24px;"></div>
+    </div>
+
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <i class="fas fa-quote-right" style="font-size: 2rem;"></i>
+            <h2>Quotes App</h2>
+        </div>
+        <a href="#" class="drawer-item" onclick="showHome()">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+        <a href="#" class="drawer-item" onclick="showFavorites()">
+            <i class="fas fa-heart"></i>
+            Favorites
+        </a>
+    </div>
+
+    <div class="overlay" onclick="toggleDrawer()"></div>
+
+    <div class="main-content" id="main-content">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+
+    <div class="footer">
+        Developed by: Shiva Prasad Acharya
+    </div>
+
+    <script>
+        const quotes = [
+            {
+                text: "Be yourself; everyone else is already taken.",
+                author: "Oscar Wilde",
+                isFavorite: false
+            },
+            {
+                text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+                author: "Albert Einstein",
+                isFavorite: false
+            },
+            {
+                text: "Be the change that you wish to see in the world.",
+                author: "Mahatma Gandhi",
+                isFavorite: false
+            },
+            {
+                text: "In three words I can sum up everything I've learned about life: it goes on.",
+                author: "Robert Frost",
+                isFavorite: false
+            },
+            {
+                text: "If you tell the truth, you don't have to remember anything.",
+                author: "Mark Twain",
+                isFavorite: false
+            }
+        ];
+
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.querySelector('.overlay').classList.toggle('open');
+        }
+
+        function toggleFavorite(index) {
+            quotes[index].isFavorite = !quotes[index].isFavorite;
+            showCurrentPage();
+        }
+
+        function createQuoteCard(quote, index) {
+            return `
+                <div class="quote-card">
+                    <button class="favorite-btn" onclick="toggleFavorite(${index})">
+                        <i class="fa-${quote.isFavorite ? 'solid' : 'regular'} fa-heart"></i>
+                    </button>
+                    <div class="quote-text">${quote.text}</div>
+                    <div class="quote-author">- ${quote.author}</div>
+                </div>
+            `;
+        }
+
+        function showHome() {
+            toggleDrawer();
+            currentPage = 'home';
+            showCurrentPage();
+        }
+
+        function showFavorites() {
+            toggleDrawer();
+            currentPage = 'favorites';
+            showCurrentPage();
+        }
+
+        let currentPage = 'home';
+
+        function showCurrentPage() {
+            const mainContent = document.getElementById('main-content');
+            if (currentPage === 'home') {
+                mainContent.innerHTML = quotes.map((quote, index) => createQuoteCard(quote, index)).join('');
+            } else {
+                const favoriteQuotes = quotes.filter(quote => quote.isFavorite);
+                mainContent.innerHTML = favoriteQuotes.length === 0 
+                    ? '<div style="text-align: center; margin-top: 2rem;"><i class="fas fa-heart-broken" style="font-size: 3rem; color: var(--pink);"></i><p style="margin-top: 1rem;">No favorite quotes yet!</p></div>'
+                    : favoriteQuotes.map((quote, index) => createQuoteCard(quote, quotes.indexOf(quote))).join('');
+            }
+        }
+
+        // Initial load
+        showCurrentPage();
+    </script>
+</body>
+</html>
