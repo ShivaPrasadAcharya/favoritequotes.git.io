@@ -5,147 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes App</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --pink: #e91e63;
-            --light-pink: #fce4ec;
-        }
+   <style>
+    :root {
+        --pink: #e91e63;
+        --light-pink: #fce4ec;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
 
-        body {
-            background-color: var(--light-pink);
-        }
+    body {
+        background-color: var(--light-pink);
+    }
 
-        .header {
-            background-color: var(--pink);
-            color: white;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    .header {
+        background-color: var(--pink);
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
 
-        .menu-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+    .menu-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
 
-        .drawer {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: white;
-            transition: 0.3s;
-            z-index: 1001;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
+    .drawer {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        transition: 0.3s;
+        z-index: 1001;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
 
-        .drawer.open {
-            left: 0;
-        }
+    .drawer.open {
+        left: 0;
+    }
 
-        .drawer-header {
-            background-color: var(--pink);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
+    .drawer-header {
+        background-color: var(--pink);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+    }
 
-        .drawer-item {
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: #333;
-            text-decoration: none;
-        }
+    .drawer-item {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: #333;
+        text-decoration: none;
+    }
 
-        .drawer-item i {
-            margin-right: 1rem;
-            color: var(--pink);
-        }
+    .drawer-item i {
+        margin-right: 1rem;
+        color: var(--pink);
+    }
 
-        .drawer-item:hover {
-            background-color: var(--light-pink);
-        }
+    .drawer-item:hover {
+        background-color: var(--light-pink);
+    }
 
-        .main-content {
-            margin-top: 60px;
-            padding: 1rem;
-            margin-bottom: 50px; /* Added to prevent content from being hidden by footer */
-        }
+    .main-content {
+        margin-top: 60px;
+        padding: 1rem;
+        margin-bottom: 50px;
+    }
 
-        .quote-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: relative;
-        }
+    .quote-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: relative;
+    }
 
-        .quote-text {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            padding-right: 30px; /* Space for favorite button */
-        }
+    .quote-text {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        padding-right: 30px;
+    }
 
-        .quote-author {
-            color: #666;
-            font-style: italic;
-        }
+    .quote-author {
+        color: #666;
+        font-style: italic;
+    }
 
-        .favorite-btn {
-            background: none;
-            border: none;
-            color: var(--pink);
-            cursor: pointer;
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            font-size: 1.2rem;
-        }
+    .favorite-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.2rem;
+    }
 
-        .footer {
-            background-color: var(--pink);
-            color: white;
-            text-align: center;
-            padding: 0.5rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+    .favorite-options {
+        position: absolute;
+        top: 3rem;
+        right: 1.5rem;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        display: none;
+        padding: 0.5rem;
+        z-index: 100;
+    }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            display: none;
-            z-index: 1000;
-        }
+    .favorite-options.show {
+        display: block;
+    }
 
-        .overlay.open {
-            display: block;
-        }
-    </style>
+    .favorite-option {
+        padding: 0.5rem;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        border: none;
+        background: none;
+        text-align: left;
+    }
+
+    .favorite-option:hover {
+        background: #f5f5f5;
+    }
+
+    .favorite1-color { color: #e91e63; } /* Pink */
+    .favorite2-color { color: #9c27b0; } /* Purple */
+    .favorite3-color { color: #2196f3; } /* Blue */
+
+    .footer {
+        background-color: var(--pink);
+        color: white;
+        text-align: center;
+        padding: 0.5rem;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: none;
+        z-index: 1000;
+    }
+
+    .overlay.open {
+        display: block;
+    }
+</style>
 </head>
 <body>
     <div class="header">
@@ -165,71 +198,126 @@
             <i class="fas fa-home"></i>
             Home
         </a>
-        <a href="#" class="drawer-item" onclick="showFavorites()">
-            <i class="fas fa-heart"></i>
-            Favorites
+        <a href="#" class="drawer-item" onclick="showFavorites(1)">
+            <i class="fas fa-heart favorite1-color"></i>
+            Favorites 1
+        </a>
+        <a href="#" class="drawer-item" onclick="showFavorites(2)">
+            <i class="fas fa-heart favorite2-color"></i>
+            Favorites 2
+        </a>
+        <a href="#" class="drawer-item" onclick="showFavorites(3)">
+            <i class="fas fa-heart favorite3-color"></i>
+            Favorites 3
         </a>
     </div>
 
     <div class="overlay" onclick="toggleDrawer()"></div>
-
-    <div class="main-content" id="main-content">
-        <!-- Content will be dynamically loaded here -->
-    </div>
-
-    <div class="footer">
-        Developed by: Shiva Prasad Acharya
-    </div>
+    <div class="main-content" id="main-content"></div>
+    <div class="footer">Developed by: Shiva Prasad Acharya</div>
 
     <script>
-        const quotes = [
+        const initialQuotes = [
             {
+                id: '1',
                 text: "Be yourself; everyone else is already taken.",
                 author: "Oscar Wilde",
-                isFavorite: false
+                favoriteType: 0 // 0: not favorite, 1-3: favorite types
             },
             {
+                id: '2',
                 text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
                 author: "Albert Einstein",
-                isFavorite: false
+                favoriteType: 0
             },
             {
+                id: '3',
                 text: "Be the change that you wish to see in the world.",
                 author: "Mahatma Gandhi",
-                isFavorite: false
+                favoriteType: 0
             },
             {
+                id: '4',
                 text: "In three words I can sum up everything I've learned about life: it goes on.",
                 author: "Robert Frost",
-                isFavorite: false
+                favoriteType: 0
             },
             {
+                id: '5',
                 text: "If you tell the truth, you don't have to remember anything.",
                 author: "Mark Twain",
-                isFavorite: false
+                favoriteType: 0
             }
         ];
 
-        function toggleDrawer() {
-            document.getElementById('drawer').classList.toggle('open');
-            document.querySelector('.overlay').classList.toggle('open');
+        let quotes = JSON.parse(localStorage.getItem('quotes')) || initialQuotes;
+        let currentPage = 'home';
+
+        function saveQuotes() {
+            localStorage.setItem('quotes', JSON.stringify(quotes));
         }
 
-        function toggleFavorite(index) {
-            quotes[index].isFavorite = !quotes[index].isFavorite;
+        function toggleFavoriteMenu(id, event) {
+            event.stopPropagation();
+            const options = document.querySelectorAll('.favorite-options');
+            options.forEach(opt => {
+                if (opt.id !== `favorite-options-${id}`) {
+                    opt.classList.remove('show');
+                }
+            });
+            document.getElementById(`favorite-options-${id}`).classList.toggle('show');
+        }
+
+        function setFavoriteType(id, type, event) {
+            event.stopPropagation();
+            quotes = quotes.map(quote => 
+                quote.id === id 
+                    ? {...quote, favoriteType: quote.favoriteType === type ? 0 : type}
+                    : quote
+            );
+            saveQuotes();
             showCurrentPage();
         }
 
-        function createQuoteCard(quote, index) {
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.favorite-options').forEach(opt => {
+                opt.classList.remove('show');
+            });
+        });
+
+        function getFavoriteIcon(favoriteType) {
+            const colorClass = favoriteType > 0 ? `favorite${favoriteType}-color` : '';
+            return favoriteType > 0 
+                ? `<i class="fas fa-heart ${colorClass}"></i>`
+                : `<i class="far fa-heart"></i>`;
+        }
+
+        function createQuoteCard(quote) {
             return `
                 <div class="quote-card">
-                    <button class="favorite-btn" onclick="toggleFavorite(${index})">
-                        <i class="fa-${quote.isFavorite ? 'solid' : 'regular'} fa-heart"></i>
+                    <button class="favorite-btn" onclick="toggleFavoriteMenu('${quote.id}', event)">
+                        ${getFavoriteIcon(quote.favoriteType)}
                     </button>
+                    <div class="favorite-options" id="favorite-options-${quote.id}">
+                        <button class="favorite-option" onclick="setFavoriteType('${quote.id}', 1, event)">
+                            <i class="fas fa-heart favorite1-color"></i> Favorite 1
+                        </button>
+                        <button class="favorite-option" onclick="setFavoriteType('${quote.id}', 2, event)">
+                            <i class="fas fa-heart favorite2-color"></i> Favorite 2
+                        </button>
+                        <button class="favorite-option" onclick="setFavoriteType('${quote.id}', 3, event)">
+                            <i class="fas fa-heart favorite3-color"></i> Favorite 3
+                        </button>
+                    </div>
                     <div class="quote-text">${quote.text}</div>
                     <div class="quote-author">- ${quote.author}</div>
                 </div>
             `;
+        }
+
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.querySelector('.overlay').classList.toggle('open');
         }
 
         function showHome() {
@@ -238,23 +326,25 @@
             showCurrentPage();
         }
 
-        function showFavorites() {
+        function showFavorites(type) {
             toggleDrawer();
-            currentPage = 'favorites';
+            currentPage = `favorites${type}`;
             showCurrentPage();
         }
-
-        let currentPage = 'home';
 
         function showCurrentPage() {
             const mainContent = document.getElementById('main-content');
             if (currentPage === 'home') {
-                mainContent.innerHTML = quotes.map((quote, index) => createQuoteCard(quote, index)).join('');
+                mainContent.innerHTML = quotes.map(quote => createQuoteCard(quote)).join('');
             } else {
-                const favoriteQuotes = quotes.filter(quote => quote.isFavorite);
+                const favoriteType = parseInt(currentPage.replace('favorites', ''));
+                const favoriteQuotes = quotes.filter(quote => quote.favoriteType === favoriteType);
                 mainContent.innerHTML = favoriteQuotes.length === 0 
-                    ? '<div style="text-align: center; margin-top: 2rem;"><i class="fas fa-heart-broken" style="font-size: 3rem; color: var(--pink);"></i><p style="margin-top: 1rem;">No favorite quotes yet!</p></div>'
-                    : favoriteQuotes.map((quote, index) => createQuoteCard(quote, quotes.indexOf(quote))).join('');
+                    ? `<div style="text-align: center; margin-top: 2rem;">
+                        <i class="fas fa-heart-broken" style="font-size: 3rem; color: var(--pink);"></i>
+                        <p style="margin-top: 1rem;">No favorite quotes in category ${favoriteType}!</p>
+                       </div>`
+                    : favoriteQuotes.map(quote => createQuoteCard(quote)).join('');
             }
         }
 
