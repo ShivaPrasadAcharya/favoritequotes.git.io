@@ -218,36 +218,19 @@
 
     <script>
         const initialQuotes = [
-            {
-                id: '1',
-                text: "Be yourself; everyone else is already taken.",
-                author: "Oscar Wilde",
+                        {
+                id: '2',
+                text: "जसले अज्ञानबाट बचाउँछ ऊ ब्रह्माण हो, जसले अन्यायबाट बचाउँछ ऊ क्षत्रीय हो, जसले अभावबाट बचाउँछ ऊ वैश्य हो र जसले अपवित्रताबाट बचाउँछ ऊ शुद्र हो",
+                author: "स्वामि रामदेव",
                 favoriteType: 0 // 0: not favorite, 1-3: favorite types
             },
             {
-                id: '2',
-                text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
-                author: "Albert Einstein",
-                favoriteType: 0
-            },
-            {
-                id: '3',
-                text: "Be the change that you wish to see in the world.",
-                author: "Mahatma Gandhi",
-                favoriteType: 0
-            },
-            {
-                id: '4',
-                text: "In three words I can sum up everything I've learned about life: it goes on.",
-                author: "Robert Frost",
-                favoriteType: 0
-            },
-            {
-                id: '5',
-                text: "If you tell the truth, you don't have to remember anything.",
-                author: "Mark Twain",
-                favoriteType: 0
+                id: '1',
+                text: "",
+                author: "",
+                favoriteType: 0 // 0: not favorite, 1-3: favorite types
             }
+          
         ];
 
         let quotes = JSON.parse(localStorage.getItem('quotes')) || initialQuotes;
